@@ -10,28 +10,21 @@ import java.util.HashMap;
 
 class Solution {
     public int solution(int[] array) {
+        int result = 0;
+        int max = 0;
         Map<Integer, Integer> numCountingMap = new HashMap<>();
         for (int num: array) {
-            numCountingMap.put(num, numCountingMap.getOrDefault(num, 0) + 1);
-        }
-        
-        return getNumMaxCount(numCountingMap);
-    }
-    
-    int getNumMaxCount(Map<Integer, Integer> numCountingMap) {
-        int numMaxCount = 0;
-        int maxCount = 0;
-        
-        for (Integer key: numCountingMap.keySet()) {
-            int count = numCountingMap.get(key);
-            if (maxCount < count) {
-                numMaxCount = key;
-                maxCount = count;
-            } else if (maxCount == count) {
-                numMaxCount = -1;
+            int count = numCountingMap.getOrDefault(num, 0) + 1;
+            if (max < count) {
+                result = num;
+                max = count;
+            } else if (max == count) {
+                result = -1;
             }
+            
+            numCountingMap.put(num, count);
         }
-
-        return numMaxCount;
+        
+        return result;
     }
 }
