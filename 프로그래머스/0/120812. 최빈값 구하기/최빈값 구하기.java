@@ -12,7 +12,6 @@ class Solution {
     public int solution(int[] array) {
         Map<Integer, Integer> numCountingMap = new HashMap<>();
         for (int num: array) {
-            int count = numCountingMap.get(num) == null ? 0 : numCountingMap.get(num);
             numCountingMap.put(num, numCountingMap.getOrDefault(num, 0) + 1);
         }
         
