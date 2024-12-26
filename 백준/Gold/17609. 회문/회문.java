@@ -34,7 +34,7 @@ public class Main {
     private static int solution(String str) {
         if (isPalindrome(str)) {
             return 0;
-        } else if (isPseudoPalidrome(str)) {
+        } else if (isPseudoPalidrome(str, 0, str.length() - 1, 0)) {
             return 1;
         } else {
             return 2;
@@ -46,29 +46,19 @@ public class Main {
         return str.equals(reversedStr);
     }
 
-    private static boolean isPseudoPalidrome(String str) {
-        int left = 0;
-        int right = str.length() - 1;
-
+    private static boolean isPseudoPalidrome(String str, int left, int right, int removalCnt) {
         while (left < right) {
             if (str.charAt(left) != str.charAt(right)) {
-                return isPalidromeAfterRemoval(str, left + 1, right) || isPalidromeAfterRemoval(str, left, right - 1);
+                removalCnt++;
+                if (removalCnt > 1) {
+                    return false;
+                }
+                return isPseudoPalidrome(str, left + 1, right, removalCnt) || isPseudoPalidrome(str, left, right - 1, removalCnt);
             }
             left++;
             right--;
         }
         
-        return true;
-    }
-
-    private static boolean isPalidromeAfterRemoval(String str, int left, int right) {
-        while (left < right) {
-            if (str.charAt(left) != str.charAt(right)) {
-                return false;
-            }
-            left++;
-            right--;
-        }
         return true;
     }
 }
